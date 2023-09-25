@@ -140,8 +140,10 @@ export default {
     };
 
     const drawSoundWave = () => {
+      
       const dataArray = new Uint8Array(analyser.value.frequencyBinCount);
       const barWidth = canvasWidth / dataArray.length;
+     
 
       const draw = () => {
         analyser.value.getByteFrequencyData(dataArray);
@@ -150,6 +152,7 @@ export default {
         for (let i = 0; i < dataArray.length; i++) {
           let color;
           const value = dataArray[i];
+          const barHeight = (dataArray[i]/-55)*canvasHeight;
 
           // Ses şiddetine göre renk değiştir
           if (value < 85) {
@@ -161,7 +164,7 @@ export default {
           }
 
           canvasContext.value.fillStyle = color;
-          canvasContext.value.fillRect(i * barWidth, canvasHeight - 2, barWidth, 2);
+          canvasContext.value.fillRect(i * barWidth, canvasHeight - 2, barWidth, 2,barHeight - canvasHeight );
         }
 
         requestAnimationFrame(draw);
