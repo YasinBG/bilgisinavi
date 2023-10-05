@@ -17,15 +17,17 @@
 
    
 </div>
+
+<KosulIfade></KosulIfade>
 </template>
 
 <script>
-// @ is an alias to /src
+import KosulIfade from '@/components/KosulIfade.vue'
 import sourceData from '../components/data.json'
 import { ref } from 'vue'
 export default {
   name: 'HomeView',
-  components: {
+  components: {KosulIfade
     
   },
   setup(){
