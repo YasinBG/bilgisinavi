@@ -19,15 +19,17 @@
 </div>
 
 <KosulIfade></KosulIfade>
+<KosulIki></KosulIki>
 </template>
 
 <script>
 import KosulIfade from '@/components/KosulIfade.vue'
+import KosulIki from '@/components/KosulIki.vue'
 import sourceData from '../components/data.json'
 import { ref } from 'vue'
 export default {
   name: 'HomeView',
-  components: {KosulIfade
+  components: {KosulIfade,KosulIki
     
   },
   setup(){
