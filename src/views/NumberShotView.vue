@@ -1,12 +1,38 @@
 <template>
-    <div>
-      <h2>Number Shot Oyunu</h2>
-      <p v-if="!gameStarted">Oyuna başlamak için başla düğmesine tıklayın!</p>
-      <p v-if="gameStarted">Hedef Sayı: {{ target }}</p>
-      <input v-model="guess" v-if="gameStarted" />
-      <button @click="startGame" v-if="!gameStarted">Başla</button>
-      <button @click="checkGuess" v-if="gameStarted">Tahmin Et</button>
-      <p v-if="gameStarted && guessResult !== null">{{ guessResult }}</p>
+    <div class="min-h-screen flex items-center justify-center bg-gray-100">
+      <div class="bg-white p-8 rounded shadow-md">
+        <h1 class="text-3xl mb-4">Number Shot Oyunu</h1>
+        <div>
+          <button
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            @click="startGame"
+          >
+            Oyuna Başla
+          </button>
+        </div>
+        <div v-if="gameStarted" class="mt-4">
+          <p v-if="message" class="text-green-500 mb-4">{{ message }}</p>
+          <p v-if="randomNumber" class="mb-4">Rastgele sayı: {{ randomNumber }}</p>
+          <label v-if="!message" for="guess" class="block">1 ile 100 arasında bir sayı girin:</label>
+          <input
+            v-if="!message"
+            type="number"
+            id="guess"
+            v-model.number="userGuess"
+            class="block border rounded p-2 my-2 w-full"
+            min="1"
+            max="100"
+          />
+          <button
+            v-if="!message"
+            @click="checkGuess"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          >
+            Tahmin Et
+          </button>
+          <p v-if="userGuess" class="mt-4">Tahmininiz: {{ userGuess }}</p>
+        </div>
+      </div>
     </div>
   </template>
   
@@ -15,26 +41,23 @@
     data() {
       return {
         gameStarted: false,
-        target: 0,
-        guess: null,
-        guessResult: null,
+        randomNumber: 0,
+        userGuess: 0,
+        message: '',
       };
     },
     methods: {
       startGame() {
+        this.randomNumber = Math.floor(Math.random() * 100) + 1;
         this.gameStarted = true;
-        this.target = Math.floor(Math.random() * 100) + 1; // 1-100 arası rastgele bir hedef sayı seç
-        this.guessResult = null;
-        this.guess = null;
       },
       checkGuess() {
-        if (this.guess === this.target) {
-          this.guessResult = "Tebrikler! Doğru tahmin ettiniz!";
-          this.gameStarted = false;
-        } else if (this.guess < this.target) {
-          this.guessResult = "Daha yüksek bir sayı tahmin edin.";
+        if (this.userGuess === this.randomNumber) {
+          this.message = 'Tebrikler, doğru tahmin!';
+        } else if (this.userGuess < this.randomNumber) {
+          this.message = 'Daha yüksek bir sayı girin.';
         } else {
-          this.guessResult = "Daha düşük bir sayı tahmin edin.";
+          this.message = 'Daha düşük bir sayı girin.';
         }
       },
     },
