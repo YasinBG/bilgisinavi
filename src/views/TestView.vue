@@ -6,15 +6,15 @@
         @keyup.enter="addTask"
         placeholder="  Görev ekle..."
       />
-      <ul class="my-6 flex flex-col text-center justify-evenly">
-        <li class="flex justify-center mx-6 text-start" v-for="(task, index) in tasks" :key="index">
+      <ul class="my-6 flex flex-col  justify-evenly">
+        <li class="flex  mx-6 text-start" v-for="(task, index) in tasks" :key="index">
           <span class="mx-6" :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
             {{ task.title }}
           </span>
-          <button class="border rounded" @click="completeTask(index)">
+          <button class="border rounded w-6 " @click="completeTask(index)">
             <input class="block border w-6 h-6" type="checkbox" />
           </button>
-          <button class="border rounded bg-red-300 text-white w-12 h-6" @click="deleteTask(index)">
+          <button class="border rounded bg-red-300 ml-6 text-white w-12 h-6" @click="deleteTask(index)">
             Sil
           </button>
         </li>
