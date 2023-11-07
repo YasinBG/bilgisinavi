@@ -1,22 +1,27 @@
 <template>
-    <div>
+    <div class="flex flex-col">
       <input
-        class="w-60 h-12 border-4 border-black rounded"
+        class="w-60 h-12 border-4 border-black rounded mx-auto"
         v-model="newTask"
         @keyup.enter="addTask"
         placeholder="  Görev ekle..."
       />
-      <ul class="my-6 flex flex-col  justify-evenly">
-        <li class="flex  mx-6 text-start" v-for="(task, index) in tasks" :key="index">
-          <span class="mx-6" :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
+      <ul class="my-6 flex flex-col">
+      
+        <li class="flex text-start  my-2 font-semibold " v-for="(task, index) in tasks" :key="index">
+          <span class="mx-6 " :style="{ textDecoration: task.completed ? 'line-through' : 'none' }">
             {{ task.title }}
           </span>
-          <button class="border rounded w-6 " @click="completeTask(index)">
-            <input class="block border w-6 h-6" type="checkbox" />
+          
+          <div class="fixed ml-80 flex ">
+            <button class=" rounded w-8" @click="completeTask(index)">
+            <input class=" border w-6 h-6 cursor-pointer" type="checkbox" />
           </button>
-          <button class="border rounded bg-red-300 ml-6 text-white w-12 h-6" @click="deleteTask(index)">
+            <button class="border rounded bg-red-300 ml-6 text-white w-12 h-6" @click="deleteTask(index)">
             Sil
           </button>
+          </div>
+          
         </li>
       </ul>
       <div :style="{ backgroundColor: color }" class="renk">
